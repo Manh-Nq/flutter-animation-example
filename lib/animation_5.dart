@@ -47,19 +47,17 @@ class _Screen5State extends State<Screen5> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    Tween<double> _scaleAnim = Tween<double>(begin: 1.0, end: 2.0);
-
     return Center(
       child: Container(
           margin: const EdgeInsets.symmetric(vertical: 10),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              _animatedContainer(),
+              _animatedFoo(),
               SizedBox(
                 height: 50,
               ),
-              _tweenBuilder(_scaleAnim),
+              _tweenBuilder(),
               SizedBox(
                 height: 50,
               ),
@@ -70,7 +68,7 @@ class _Screen5State extends State<Screen5> with SingleTickerProviderStateMixin {
                   controller.reverse();
                 }
               }),
-              _crossFadeContainer(isShow, () {
+              _crossFadeAnimatedFoo(isShow, () {
                 _changeShow();
               }),
             ],
@@ -78,7 +76,7 @@ class _Screen5State extends State<Screen5> with SingleTickerProviderStateMixin {
     );
   }
 
-  Widget _animatedContainer() {
+  Widget _animatedFoo() {
     return AnimatedContainer(
       color: Colors.blue,
       duration: Duration(milliseconds: 1000),
@@ -96,7 +94,7 @@ class _Screen5State extends State<Screen5> with SingleTickerProviderStateMixin {
     );
   }
 
-  Widget _crossFadeContainer(bool isShow, VoidCallback change) {
+  Widget _crossFadeAnimatedFoo(bool isShow, VoidCallback change) {
     return AnimatedCrossFade(
       firstChild: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -121,13 +119,13 @@ class _Screen5State extends State<Screen5> with SingleTickerProviderStateMixin {
     );
   }
 
-  Widget _tweenBuilder(Tween<double> tween) {
+  Widget _tweenBuilder() {
     return TweenAnimationBuilder(
-      tween: tween,
+      tween: Tween<double>(begin: 90, end: 270),
       builder: (context, data, child) {
-        return Transform.scale(scale: data as double, child: child);
+        return Transform.rotate(angle: data as double, child: child);
       },
-      duration: Duration(milliseconds: 1000),
+      duration: Duration(milliseconds: 10000),
       curve: Curves.easeInCirc,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,

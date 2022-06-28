@@ -1,20 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class CardItem extends StatelessWidget {
-  const CardItem({
+class ViewItem extends StatelessWidget {
+
+  final Animation<double> animation;
+  final VoidCallback? onClick;
+  final int item;
+  final bool selected;
+
+  const ViewItem({
     Key? key,
-    this.onTap,
+    this.onClick,
     this.selected = false,
     required this.animation,
     required this.item,
-  })  : assert(item >= 0),
+  }) : assert(item >= 0),
         super(key: key);
 
-  final Animation<double> animation;
-  final VoidCallback? onTap;
-  final int item;
-  final bool selected;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,7 @@ class CardItem extends StatelessWidget {
         sizeFactor: animation,
         child: GestureDetector(
           behavior: HitTestBehavior.opaque,
-          onTap: onTap,
+          onTap: onClick,
           child: SizedBox(
             height: 80.0,
             child: Card(

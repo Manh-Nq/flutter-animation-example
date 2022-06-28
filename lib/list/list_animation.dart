@@ -29,13 +29,13 @@ class _AnimatedListSampleState extends State<AnimatedListSample> {
   }
 
   // Used to build list items that haven't been removed.
-  Widget _buildItem(
+  Widget _itemHolder(
       BuildContext context, int index, Animation<double> animation) {
-    return CardItem(
+    return ViewItem(
       animation: animation,
       item: _manager[index],
       selected: _selectedItem == _manager[index],
-      onTap: () {
+      onClick: () {
         setState(() {
           _selectedItem = _selectedItem == _manager[index] ? null : _manager[index];
         });
@@ -45,7 +45,7 @@ class _AnimatedListSampleState extends State<AnimatedListSample> {
 
   Widget _buildRemovedItem(
       int item, BuildContext context, Animation<double> animation) {
-    return CardItem(
+    return ViewItem(
       animation: animation,
       item: item,
     );
@@ -92,7 +92,7 @@ class _AnimatedListSampleState extends State<AnimatedListSample> {
           child: AnimatedList(
             key: _listKey,
             initialItemCount: _manager.length,
-            itemBuilder: _buildItem,
+            itemBuilder: _itemHolder,
           ),
         ),
       ),
